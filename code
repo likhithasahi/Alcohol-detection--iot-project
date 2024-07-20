@@ -1,0 +1,22 @@
+#define gas A0 // Define analog pin for MQ3 sensor
+#define relayPin D1 // Define the pin connected to the relay module
+int alc = 0; // Variable to store alcohol detection status
+void setup() {
+pinMode(gas, INPUT);
+pinMode(relayPin, OUTPUT);
+digitalWrite(relayPin, HIGH); // Initially turning off the motor
+Serial.begin(9600); // Start serial communication
+}
+void loop() {
+alc = analogRead(gas); // Read alcohol sensor value
+Serial.println(alc);
+if (alc > 500) { // Define a threshold value for alcohol detection
+digitalWrite(relayPin, HIGH); // Turn off the motor
+Serial.println("Alcohol Detected! Motor turned off.");
+// You can add additional actions here if needed
+} else {
+digitalWrite(relayPin, LOW); // Turn on the motor
+Serial.println("No alcohol detected. Motor running.");
+}
+delay(10000);
+)
